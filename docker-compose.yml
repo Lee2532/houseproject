@@ -1,0 +1,65 @@
+version: "3.9"
+services:
+  db:
+    container_name: db
+    image: mariadb
+    volumes:
+      - ./db/conf.d:/etc/mysql/conf.d
+      - ./db/data:/var/lib/mysql
+      - ./db/initdb.d:/docker-entrypoint-initdb.d
+    command: ['--character-set-server=utf8', '--collation-server=utf8_unicode_ci']
+
+    environment: 
+      - MYSQL_ROOT_PASSWORD=mariadb
+      - MYSQL_DATABASE=mariadb
+      - MYSQL_USER=mariadb
+      - MYSQL_PASSWORD=mariadb
+      - MYSQL_PORT=3306
+      - MYSQL_HOST=db
+
+    ports:
+      - "3306:3306"
+    restart: always      
+    
+  frontend:
+    build: ./frontend
+    volumes:
+      - './frontend:/app'
+      - '/app/node_modules'
+    ports:
+      - 8080:8080
+    environment: 
+      - CHOKIDAR_USEPOLLING=true
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    restart: always
+    environment:
+      - SECRET_KEY=b@osi_2odf!)@$ja^#$sknid63_fias24*2finsdnf!4
+      - DJANGO_SETTINGS_MODULE=houseproject.setting
+      - MYSQL_ROOT_PASSWORD=mariadb
+      - MYSQL_DATABASE=mariadb
+      - MYSQL_USER=mariadb
+      - MYSQL_PASSWORD=mariadb
+      - MYSQL_PORT=3306
+      - MYSQL_HOST=db
+    ports:
+      - "8000:8000"
+    
+    command: python manage.py runserver 0.0.0.0:8000
+    
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+      - redis
+
+  redis:
+    image: redis:alpine
+    command: redis-server --port 6379
+    ports:
+      - 6379:6379
+    restart: always
