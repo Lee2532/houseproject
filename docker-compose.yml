@@ -30,6 +30,7 @@ services:
       - 8080:8080
     environment: 
       - CHOKIDAR_USEPOLLING=true
+    restart: always
 
   api:
     build:

@@ -9,9 +9,24 @@ DATABASE : MYSQL, MongoDB, REIDS
 
 python version : 3.8
 
+vue : 2.6.14
+
 ```
 
+
+```
+실행 방법
+docker-compose up -d
+```
+
+
 > DB 관련은 backend -> models 참고
+
+# TODO
+
+테스트 코드
+return response status code & error exception
+
 
 
 - [x] 환경설정
