@@ -10,6 +10,6 @@ from .serializers import ProductSerializer
 # Create your views here.
 class ProductList(APIView):
     def get(self, request):
-        queryset = Product.objects.filter().order_by("-idx")
+        queryset = Product.objects.filter().order_by("idx")
         serializer = ProductSerializer(queryset, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)

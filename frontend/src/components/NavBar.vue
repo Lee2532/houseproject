@@ -32,7 +32,7 @@
               <router-link class="nav-link" to="/login">Log In</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/store">스토어</router-link>
+              <router-link class="nav-link" to="/product">스토어</router-link>
             </li>
           </ul>
         </div>
