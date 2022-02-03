@@ -4,7 +4,7 @@ from django.db import models
 class Product(models.Model):
     idx = models.AutoField(primary_key=True, verbose_name="상품코드")
     title = models.CharField(max_length=50, null=False, blank=False, verbose_name="상품명")
-    brand = models.CharField(max_length=50, null=False, blank=False, verbose_name="브랜드 명")
+    brand = models.CharField(max_length=50, null=False, blank=False, verbose_name="브랜드명")
     content = models.CharField(max_length=200, null=False, blank=False, verbose_name="본문")
     price =  models.IntegerField(blank=False, verbose_name="가격")
     
