@@ -10,6 +10,8 @@
             <li><strong>브랜드:</strong> {{ product.brand }}</li>
             <li><strong>설명:</strong> {{ product.content }}</li>
             <li><strong>가격:</strong> {{ product.price }}</li>
+            <p><router-link :to="{name: 'productions', params:{id: product.idx}}" class="btn btn-primary">상세 정보</router-link></p>
+
           </ul>
         </div>
       </div>
