@@ -1,3 +1,4 @@
+from math import prod
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -34,3 +35,7 @@ class ProductDetail(APIView):
             return Response(serializer.data)
         return Response(serializer.error, status=status.HTTP_404_NOT_FOUND)
     
+    def delete(self, request, pk):
+        product = get_object_or_404(Product, idx=pk)
+        product.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
