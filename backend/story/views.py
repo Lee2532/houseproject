@@ -23,6 +23,8 @@ class StoryDetail(APIView):
     def get(self, request, pk):
         story = get_object_or_404(Story, idx=pk)
         serializer = StorySerializer(story)
+        story.views +=1
+        story.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def patch(self, request, pk):
