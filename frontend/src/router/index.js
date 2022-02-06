@@ -5,7 +5,7 @@ import store from '@/store';
 
 import Dashboard from '@/views/Dashboard';
 import Home from '@/views/Home.vue';
-import Stores from '@/views/Stores.vue';
+import Product from '@/views/Product.vue';
 
 Vue.use(VueRouter);
 
@@ -22,10 +22,15 @@ const routes = [
     meta: {requiresAuth: true},
   },
   {
-    path: '/store',
-    name: 'Store',
-    component: Stores,
-    
+    path: '/Product',
+    name: 'Product',
+    component: Product,
+    props: true,
+  },
+  {
+    path: '/productions/:id',
+    name: 'productions',
+    component: Product,
     props: true,
   }
 ]

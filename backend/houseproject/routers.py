@@ -2,6 +2,8 @@ class DatabaseRouter:
     def db_for_read(self, model, **hints):
         if model._meta.app_label == "postgresql":
             return "postgresql"
+        elif model._meta.app_label == "mongo":
+            return "mongo"
         return "default"
 
     def db_for_write(self, model, **hints):

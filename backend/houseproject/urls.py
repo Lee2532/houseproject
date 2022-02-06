@@ -19,4 +19,8 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("product/", include("product.urls")),
+    path("story/", include("story.urls")),
+
+
 ]
