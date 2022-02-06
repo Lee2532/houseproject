@@ -47,6 +47,11 @@ services:
       - MYSQL_PASSWORD=mariadb
       - MYSQL_PORT=3306
       - MYSQL_HOST=db
+      - MONGO_DB_NAME=houseproject
+      - MONGO_DB_USER=mongo
+      - MONGO_DB_PASSWORD=0000
+      - MONGO_DB_HOST=host.docker.internal
+
     ports:
       - "8000:8000"
     
@@ -64,3 +69,4 @@ services:
     ports:
       - 6379:6379
     restart: always
+  

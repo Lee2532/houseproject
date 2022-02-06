@@ -1,4 +1,3 @@
-from pyexpat import model
 from django.db import models
 
 class Product(models.Model):
@@ -16,7 +15,7 @@ class ProductReviews(models.Model):
     '''
     추후 구매자 idx, 및 이미지 칼럼 추가 예정
     '''
-    product_idx = models.ForeignKey(Product, verbose_name="상품_코드", on_delete=models.CASCADE)
+    product_idx = models.ForeignKey(Product, verbose_name="상품_코드", on_delete=models.CASCADE, db_column="product_idx")
     idx = models.AutoField(primary_key=True, verbose_name="리뷰idx")
     stars =  models.FloatField(blank=False, verbose_name="별점")
     reviews = models.CharField(max_length=100, null=False, blank=False, verbose_name="리뷰")
