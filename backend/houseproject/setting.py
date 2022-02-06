@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'product',
+    'story',
 ]
 
 REST_FRAMEWORK = {
@@ -89,6 +90,10 @@ MYSQL_USER = os.environ.get("MYSQL_USER", None)
 MYSQL_PASSWORD = os.environ.get("MYSQL_PASSWORD", None)
 MYSQL_HOST = os.environ.get("MYSQL_HOST", None)
 MYSQL_PORT = os.environ.get("MYSQL_PORT", None)
+MONGO_DB_NAME = os.environ.get("MONGO_DB_NAME", None)
+MONGO_DB_HOST = os.environ.get("MONGO_DB_HOST", None)
+MONGO_DB_USER = os.environ.get("MONGO_DB_USER", None)
+MONGO_DB_PASSWORD = os.environ.get("MONGO_DB_PASSWORD", None)
 
 DATABASE_ROUTERS = [
     "houseproject.routers.DatabaseRouter",
@@ -106,6 +111,18 @@ DATABASES = {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES', innodb_strict_mode=1",
         },
     },
+    'mongo': {
+        'ENGINE': 'djongo',
+        'NAME': MONGO_DB_NAME,
+        'CLIENT': {
+            'host': MONGO_DB_HOST,
+            'port': 27017,
+            'username': MONGO_DB_USER,
+            'password': MONGO_DB_PASSWORD,
+            'authSource': 'admin',
+            'authMechanism': 'SCRAM-SHA-1'
+        }
+    }
 }
 
 # Password validation
