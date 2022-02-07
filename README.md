@@ -64,6 +64,7 @@ return response status code & error exception
     - [x] 상품 상세 정보
     - [x] 상품 정보 수정
     - [x] 상품 삭제
+    - [ ] 페이지 기능
     - [ ] 장바구니 추가
     - [ ] 바로 구매
 
@@ -94,12 +95,14 @@ return response status code & error exception
     - [ ] 사무실
 
 - [ ] 커뮤니티(story)
-    - [ ] 게시판 등록
+    - [x] 게시판 등록
+    - [x] 조회수 기능
     - [ ] 이미지 추가
-    - [ ] 댓글 기능
+    - [x] 댓글 기능
     - [ ] 좋아요 등 기타 감정 표현
     - [ ] 대댓글
     - [ ] 댓글 삭제
+        - [ ] 삭제된 댓글입니다
 
 - [ ] 리뷰
     - [ ] 리뷰 작성
