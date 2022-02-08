@@ -47,10 +47,9 @@ class StoryCommentList(APIView):
     '''
     def get(self, request, pk):
         comment = get_list_or_404(StoryComment, story_idx=pk)
-        # paginator = Paginator(queryset, 10)
-        # page_number = request.GET.get('page')
-        # page_obj = paginator.get_page(page_number)
-        serializer = StoryCommentSerializer(comment, many=True)
+        paginator = Paginator(comment , 5) # 보여주는 갯수
+        page_obj = paginator.get_page('1') #페이지는 임시 하드코딩
+        serializer = StoryCommentSerializer(page_obj, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
         
     def post(self, request, pk):
