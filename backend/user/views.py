@@ -2,13 +2,13 @@ from functools import partial
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.contrib.auth import authenticate
-
+from rest_framework.exceptions import APIException
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, get_list_or_404
 from .models import User
 from .serializers import UserSerializer
-from houseproject.common import get_token, check_token
+from houseproject.common import get_token, check_token, JWTLogin
+
 
 class SignUp(APIView):
     def post(self, request):
@@ -19,6 +19,15 @@ class SignUp(APIView):
         return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
 
 class SignIn(APIView):
+    def get(self, request):
+        '''
+        token 인증
+        '''
+        data = check_token(request)
+        # if data == "TOKEN_EXPIRED":
+        #     return Response(data=data, status=status.HTTP_400_BAD_REQUEST)
+        return Response(data=data, status=status.HTTP_200_OK)
+
     def post(self, request):
         username = request.data.get('username', None)
         password = request.data.get('password', None)
@@ -38,14 +47,8 @@ class SignIn(APIView):
             }
         }
         return Response(data=data, status=status.HTTP_200_OK)
-        
+    
+class Test(APIView):
+    @JWTLogin
     def get(self, request):
-        '''
-        token 인증
-        '''
-        access_token = request.headers.get('Authorization', None)
-        
-        data = check_token(access_token)
-        # if data == "TOKEN_EXPIRED":
-        #     return Response(data=data, status=status.HTTP_400_BAD_REQUEST)
-        return Response(data=data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_200_OK)
