@@ -52,7 +52,7 @@ NestJS : https://github.com/Lee2532/NestJS-Auth
 - [ ] 유저
     - [x] 기본 가입 기능
     - [ ] password 암호화
-    - [ ] JWT
+    - [x] JWT
     - [ ] 접근 권한
         - [ ] admin, user, seller
 
