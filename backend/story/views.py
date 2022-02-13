@@ -2,9 +2,10 @@ from functools import partial
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.shortcuts import get_object_or_404
-from .models import Story
-from .serializers import StorySerializer
+from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404, get_list_or_404
+from .models import Story, StoryComment
+from .serializers import StorySerializer, StoryCommentSerializer
 
 class StoryList(APIView):
     def get(self, request):
@@ -23,6 +24,8 @@ class StoryDetail(APIView):
     def get(self, request, pk):
         story = get_object_or_404(Story, idx=pk)
         serializer = StorySerializer(story)
+        story.views +=1
+        story.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def patch(self, request, pk):
@@ -37,3 +40,23 @@ class StoryDetail(APIView):
         product = get_object_or_404(Story, idx=pk)
         product.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class StoryCommentList(APIView):
+    '''
+    댓글 작성, Paginator 기능 추가
+    '''
+    def get(self, request, pk):
+        page = request.GET.get("page", 1)
+        comment = get_list_or_404(StoryComment, story_idx=pk)
+        paginator = Paginator(comment , 5) # 보여주는 갯수 -> 추후 enums로 관리 예정. data가 적어 임시로 5개.
+        page_obj = paginator.get_page(page)
+        serializer = StoryCommentSerializer(page_obj, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+        
+    def post(self, request, pk):
+        request.data['story_idx'] = pk # 이보다 좋은 방법 있는지 찾아보기.
+        serializer = StoryCommentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
