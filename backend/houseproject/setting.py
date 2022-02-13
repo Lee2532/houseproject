@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'product',
     'story',
+    'user',
+
 ]
 
 REST_FRAMEWORK = {

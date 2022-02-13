@@ -46,14 +46,15 @@ class StoryCommentList(APIView):
     댓글 작성, Paginator 기능 추가
     '''
     def get(self, request, pk):
+        page = request.GET.get("page", 1)
         comment = get_list_or_404(StoryComment, story_idx=pk)
-        paginator = Paginator(comment , 5) # 보여주는 갯수
-        page_obj = paginator.get_page('1') #페이지는 임시 하드코딩
+        paginator = Paginator(comment , 5) # 보여주는 갯수 -> 추후 enums로 관리 예정. data가 적어 임시로 5개.
+        page_obj = paginator.get_page(page)
         serializer = StoryCommentSerializer(page_obj, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
         
     def post(self, request, pk):
-        request.data['story_idx'] = pk
+        request.data['story_idx'] = pk # 이보다 좋은 방법 있는지 찾아보기.
         serializer = StoryCommentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

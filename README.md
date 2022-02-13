@@ -9,7 +9,7 @@
 ## BACKEND : Django
 
 ```
-DATABASE : MYSQL, MongoDB, REIDS
+DATABASE : MYSQL, MongoDB, REDIS 
 
 version
 
@@ -17,6 +17,8 @@ python : 3.8
 vue : 2.6.14
 
 아직 mongodb가 익숙치 않아 docker 기반이 아닌 local로 테스트중.
+REDIS로 로그인 관리 할 예정.
+JWT와 연계.
 
 ```
 
@@ -34,6 +36,7 @@ docker-compose up -d
 테스트 코드
 return response status code & error exception
 
+NestJS : https://github.com/Lee2532/NestJS-Auth
 
 
 - [ ] 환경설정
@@ -46,11 +49,12 @@ return response status code & error exception
     - [ ] load balace
     - [ ] monitor
 
-- [ ] AUTH (JWT)
-    - [ ] NestJS 예정
-
-- [ ] 회원가입
-    - [ ] NestJS 예정
+- [ ] 유저
+    - [x] 기본 가입 기능
+    - [ ] password 암호화
+    - [ ] JWT
+    - [ ] 접근 권한
+        - [ ] admin, user, seller
 
 - [ ] 내정보
     - [ ] 내 정보 조회
